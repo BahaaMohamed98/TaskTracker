@@ -1,11 +1,11 @@
-package database;
+package database.connection;
 
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DBConnection {
+public class HikariConnectionProvider implements ConnectionProvider {
     private final static String URL = "jdbc:h2:./database;AUTO_SERVER=TRUE";
     private final static HikariDataSource dataSource = createDataSource();
 
@@ -15,6 +15,7 @@ public class DBConnection {
         return ds;
     }
 
+    @Override
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
