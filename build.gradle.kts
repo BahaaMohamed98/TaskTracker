@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/com.h2database/h2
-    testImplementation("com.h2database:h2:2.3.232")
+    implementation("com.h2database:h2:2.3.232")
 
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation("com.zaxxer:HikariCP:6.3.0")
