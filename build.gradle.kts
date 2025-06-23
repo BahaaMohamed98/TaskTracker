@@ -1,5 +1,10 @@
 plugins {
     id("java")
+    id("application")
+}
+
+application {
+    mainClass.set("Main")
 }
 
 version = "1.0-SNAPSHOT"
