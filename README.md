@@ -18,7 +18,7 @@ Spring Boot.
 
 ## 🛠 Tech Stack
 
-- **Java 23** - Programming language
+- **Java 21** - Programming language
 - **H2 Database** - Embedded SQL database
 - **HikariCP** - High-performance connection pooling
 - **PicoCLI** - Command-line interface framework
@@ -29,7 +29,7 @@ Spring Boot.
 
 ### Prerequisites
 
-- Java 23 or higher
+- Java 21 or higher
 - No additional setup required (Gradle wrapper included)
 
 ### Build the Application

@@ -16,7 +16,7 @@ public class UpdateCommand implements Runnable {
     @Spec
     CommandSpec spec;
 
-    @Parameters(index = "0", description = "The ID of tfe task to update")
+    @Parameters(index = "0", description = "The ID of the task to update")
     int id;
 
     @Option(names = {"-t", "--title"}, description = "New title for the task")

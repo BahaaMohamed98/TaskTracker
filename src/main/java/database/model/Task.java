@@ -68,7 +68,7 @@ public class Task {
     public String toString() {
         String emoji = done ? "✅" : "⭕";
         String desc = description.isEmpty() ? "" : " — " + description;
-        String base = String.format("%s %d. %s%s", emoji, id, title, desc);
+        String base = String.format("%s  %d. %s%s", emoji, id, title, desc);
         String dateStr = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
         int totalWidth = 50;
