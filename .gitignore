@@ -18,3 +18,5 @@ out/
 
 ## db
 *.db
+
+/task-cli_completion
