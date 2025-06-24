@@ -4,9 +4,10 @@ plugins {
 }
 
 application {
-    mainClass.set("TaskApp")
+    mainClass.set("com.github.bahaa.tasktracker.Main")
 }
 
+group = "com.github.bahaa.tasktracker"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -29,7 +30,7 @@ dependencies {
 
 tasks.jar {
     manifest {
-        attributes("Main-Class" to "TaskApp")
+        attributes("Main-Class" to "com.github.bahaa.tasktracker.Main")
     }
 
     // Create a fat JAR with all dependencies
@@ -59,7 +60,7 @@ tasks.register<JavaExec>("generateCompletion") {
     description = "Generate bash completion script"
     classpath = sourceSets.main.get().runtimeClasspath
     mainClass.set("picocli.AutoComplete")
-    args("TaskApp")
+    args("com.github.bahaa.tasktracker.Main")
     doLast {
         println("Completion script generated: task-cli_completion")
         println("To enable completion, run: source task-cli_completion")
