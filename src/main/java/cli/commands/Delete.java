@@ -5,13 +5,13 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "delete", description = "Remove a task by ID", mixinStandardHelpOptions = true)
-public class DeleteCommand implements Runnable {
+public class Delete implements Runnable {
     private final TaskController controller;
 
     @Parameters(index = "0", description = "The ID of the task to delete")
     int id;
 
-    public DeleteCommand(TaskController controller) {
+    public Delete(TaskController controller) {
         this.controller = controller;
     }
 

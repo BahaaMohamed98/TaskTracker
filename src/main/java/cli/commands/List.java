@@ -5,10 +5,8 @@ import database.model.Task;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
-import java.util.List;
-
 @Command(name = "list", description = "Display tasks filtered by status", mixinStandardHelpOptions = true)
-public class ListCommand implements Runnable {
+public class List implements Runnable {
     private final TaskController controller;
 
     enum ListType {all, done, todo}
@@ -16,13 +14,13 @@ public class ListCommand implements Runnable {
     @Parameters(index = "0", defaultValue = "all", description = "Filter tasks by status: ${COMPLETION-CANDIDATES} (default: all)")
     ListType listType = ListType.all;
 
-    public ListCommand(TaskController controller) {
+    public List(TaskController controller) {
         this.controller = controller;
     }
 
     @Override
     public void run() {
-        List<Task> tasks = switch (listType) {
+        java.util.List<Task> tasks = switch (listType) {
             case all -> controller.getAllTasks();
             case done -> controller.getDoneTasks();
             case todo -> controller.getTodoTasks();

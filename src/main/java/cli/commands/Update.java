@@ -10,7 +10,7 @@ import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
 
 @Command(name = "update", description = "Modify an existing task", mixinStandardHelpOptions = true)
-public class UpdateCommand implements Runnable {
+public class Update implements Runnable {
     private final TaskController controller;
 
     @Spec
@@ -25,7 +25,7 @@ public class UpdateCommand implements Runnable {
     @Option(names = {"-d", "--description"}, description = "New description for the task")
     String description;
 
-    public UpdateCommand(TaskController controller) {
+    public Update(TaskController controller) {
         this.controller = controller;
     }
 

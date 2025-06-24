@@ -30,16 +30,16 @@ public class TaskApp implements Runnable {
         try {
             new DBInit(connectionProvider).init();
         } catch (SQLException e) {
-            System.err.println("Failed to initialize database" + e.getMessage());
+            System.err.println("Failed to initialize database:" + e.getMessage());
             return;
         }
 
         new CommandLine(new TaskApp())
-                .addSubcommand(new AddCommand(taskController))
-                .addSubcommand(new UpdateCommand(taskController))
-                .addSubcommand(new DeleteCommand(taskController))
-                .addSubcommand(new MarkCommand(taskController))
-                .addSubcommand(new ListCommand(taskController))
+                .addSubcommand(new Add(taskController))
+                .addSubcommand(new Update(taskController))
+                .addSubcommand(new Delete(taskController))
+                .addSubcommand(new Mark(taskController))
+                .addSubcommand(new List(taskController))
                 .execute(args);
     }
 }

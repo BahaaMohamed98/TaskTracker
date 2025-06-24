@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-
     private final int id;
     private String title;
     private String description;
@@ -50,7 +49,6 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public boolean isDone() {
         return done;
