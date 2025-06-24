@@ -1,6 +1,5 @@
-package cli;
-
 import cli.commands.*;
+import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Spec;
@@ -22,5 +21,9 @@ public class TaskApp implements Runnable {
     @Override
     public void run() {
         spec.commandLine().usage(System.out);
+    }
+
+    public static void main(String... args) {
+        new CommandLine(new TaskApp()).execute(args);
     }
 }

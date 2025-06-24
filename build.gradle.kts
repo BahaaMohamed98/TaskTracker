@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass.set("Main")
+    mainClass.set("TaskApp")
 }
 
 version = "1.0-SNAPSHOT"
@@ -29,7 +29,7 @@ dependencies {
 
 tasks.jar {
     manifest {
-        attributes("Main-Class" to "Main")
+        attributes("Main-Class" to "TaskApp")
     }
 
     // Create a fat JAR with all dependencies
@@ -44,5 +44,18 @@ testing {
         val test by getting(JvmTestSuite::class) {
             useJUnitJupiter()
         }
+    }
+}
+
+tasks.register<JavaExec>("generateCompletion") {
+    dependsOn("build")
+    group = "application"
+    description = "Generate bash completion script"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("picocli.AutoComplete")
+    args("TaskApp")
+    doLast {
+        println("Completion script generated: task-cli_completion")
+        println("To enable completion, run: source task-cli_completion")
     }
 }
