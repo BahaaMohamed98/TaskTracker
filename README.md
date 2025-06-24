@@ -69,6 +69,8 @@ source task-cli_completion
 ./task-cli --version
 ```
 
+> ℹ️ **Tip**: You can use `--help` with any subcommand (e.g., `./task-cli add --help`) to see detailed options.
+
 #### Adding a new task
 
 ```bash
