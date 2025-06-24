@@ -123,7 +123,7 @@ class TaskDAOTest {
         assertEquals(2, taskDAO.findAll().size(), "Should have 2 tasks before deletion");
 
         // When
-        assertDoesNotThrow(() -> taskDAO.delete(task1));
+        assertDoesNotThrow(() -> taskDAO.deleteById(task1.getId()));
 
         // Then
         List<Task> remainingTasks = taskDAO.findAll();
@@ -139,7 +139,7 @@ class TaskDAOTest {
         Task nonExistentTask = new Task(999, "Non-existent", "Description", false, LocalDateTime.now());
 
         // When & Then
-        assertThrows(TaskNotFoundException.class, () -> taskDAO.delete(nonExistentTask));
+        assertThrows(TaskNotFoundException.class, () -> taskDAO.deleteById(nonExistentTask.getId()));
     }
 
     @Test

@@ -66,12 +66,14 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", done=" + done +
-                ", createdAt=" + createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
-                '}';
+        String emoji = done ? "✅" : "⭕";
+        String desc = description.isEmpty() ? "" : " — " + description;
+        String base = String.format("%s %d. %s%s", emoji, id, title, desc);
+        String dateStr = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        int totalWidth = 50;
+        int pad = Math.max(1, totalWidth - base.length() - dateStr.length());
+
+        return base + " ".repeat(pad) + "| " + dateStr;
     }
 }

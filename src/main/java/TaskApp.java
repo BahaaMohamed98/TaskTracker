@@ -1,19 +1,18 @@
 import cli.commands.*;
+import controller.TaskController;
+import database.DBInit;
+import database.connection.ConnectionProvider;
+import database.connection.HikariConnectionProvider;
+import database.dao.TaskDAO;
+import database.mapper.TaskMapper;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Spec;
 
-@Command(name = "task-cli", description = "A command-line task management application",
-        version = "1.0.0", mixinStandardHelpOptions = true,
-        subcommands = {
-                AddCommand.class,
-                DeleteCommand.class,
-                ListCommand.class,
-                MarkCommand.class,
-                UpdateCommand.class,
-        }
-)
+import java.sql.SQLException;
+
+@Command(name = "task-cli", description = "A command-line task management application", version = "1.0.0", mixinStandardHelpOptions = true)
 public class TaskApp implements Runnable {
     @Spec
     CommandSpec spec;
@@ -24,6 +23,23 @@ public class TaskApp implements Runnable {
     }
 
     public static void main(String... args) {
-        new CommandLine(new TaskApp()).execute(args);
+        final ConnectionProvider connectionProvider = new HikariConnectionProvider();
+        final TaskDAO dao = new TaskDAO(connectionProvider, new TaskMapper());
+        final TaskController taskController = new TaskController(dao);
+
+        try {
+            new DBInit(connectionProvider).init();
+        } catch (SQLException e) {
+            System.err.println("Failed to initialize database" + e.getMessage());
+            return;
+        }
+
+        new CommandLine(new TaskApp())
+                .addSubcommand(new AddCommand(taskController))
+                .addSubcommand(new UpdateCommand(taskController))
+                .addSubcommand(new DeleteCommand(taskController))
+                .addSubcommand(new MarkCommand(taskController))
+                .addSubcommand(new ListCommand(taskController))
+                .execute(args);
     }
 }

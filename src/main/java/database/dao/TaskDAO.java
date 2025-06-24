@@ -47,6 +47,42 @@ public class TaskDAO {
         }
     }
 
+    public Task findById(int id) {
+        try (var connection = connectionProvider.getConnection();
+             var ps = connection.prepareStatement("SELECT * FROM TASKS WHERE ID = ?")
+        ) {
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                return mapper.from(resultSet);
+            }
+
+            throw new TaskNotFoundException(id);
+        } catch (SQLException e) {
+            throw new TaskDAOException("Failed to find by status", e);
+        }
+    }
+
+    public List<Task> findByStatus(boolean isDone) {
+        List<Task> tasks = new ArrayList<>();
+
+        try (var connection = connectionProvider.getConnection();
+             var ps = connection.prepareStatement("SELECT * FROM TASKS WHERE IS_DONE = ?")
+        ) {
+            ps.setBoolean(1, isDone);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                tasks.add(mapper.from(resultSet));
+            }
+
+            return tasks;
+        } catch (SQLException e) {
+            throw new TaskDAOException("Failed to find by status", e);
+        }
+    }
+
     public List<Task> findAll() {
         List<Task> tasks = new ArrayList<>();
 
@@ -82,17 +118,17 @@ public class TaskDAO {
         }
     }
 
-    public void delete(Task task) {
+    public void deleteById(int id) {
         try (var connection = connectionProvider.getConnection();
              var ps = connection.prepareStatement("DELETE FROM TASKS WHERE id = ?")
         ) {
-            ps.setInt(1, task.getId());
+            ps.setInt(1, id);
 
             if (ps.executeUpdate() != 1) {
-                throw new TaskNotFoundException(task.getId());
+                throw new TaskNotFoundException(id);
             }
         } catch (SQLException e) {
-            throw new TaskDAOException("Failed to delete task" + e);
+            throw new TaskDAOException("Failed to delete task", e);
         }
     }
 
@@ -103,7 +139,7 @@ public class TaskDAO {
             //noinspection SqlWithoutWhere
             stmt.executeUpdate("DELETE FROM TASKS");
         } catch (SQLException e) {
-            throw new TaskDAOException("Failed to delete all tasks" + e);
+            throw new TaskDAOException("Failed to delete all tasks", e);
         }
     }
 }

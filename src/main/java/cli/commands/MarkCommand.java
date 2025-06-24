@@ -1,10 +1,12 @@
 package cli.commands;
 
+import controller.TaskController;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "mark", description = "Update task status to done or todo", mixinStandardHelpOptions = true)
 public class MarkCommand implements Runnable {
+    private final TaskController controller;
 
     enum MarkType {done, todo}
 
@@ -14,7 +16,15 @@ public class MarkCommand implements Runnable {
     @Parameters(index = "1", description = "The ID of the task to update")
     int id;
 
+    public MarkCommand(TaskController controller) {
+        this.controller = controller;
+    }
+
     @Override
     public void run() {
+        switch (markType) {
+            case todo -> controller.markTaskTodo(id);
+            case done -> controller.markTaskDone(id);
+        }
     }
 }
