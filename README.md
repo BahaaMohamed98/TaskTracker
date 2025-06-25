@@ -43,19 +43,12 @@ Spring Boot.
 ```bash
 # Make the script executable
 chmod +x task-cli
-```
 
-### Tab Completion (Optional)
-
-```bash
-# Generate the completion script
-./gradlew generateCompletion
-
-# Source the completion script
+# Enable tab completion for commands (optional) 
 source task-cli_completion
 ```
 
-> 💡 **Tip**: With tab completion enabled, press TAB after typing a partial command to see available options.
+> 💡 **Tip**: Press TAB after a partial command to view available options with tab completion enabled.
 
 ### Usage Examples
 

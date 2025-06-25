@@ -53,16 +53,3 @@ testing {
         }
     }
 }
-
-tasks.register<JavaExec>("generateCompletion") {
-    dependsOn("build")
-    group = "application"
-    description = "Generate bash completion script"
-    classpath = sourceSets.main.get().runtimeClasspath
-    mainClass.set("picocli.AutoComplete")
-    args("com.github.bahaa.tasktracker.Main")
-    doLast {
-        println("Completion script generated: task-cli_completion")
-        println("To enable completion, run: source task-cli_completion")
-    }
-}
